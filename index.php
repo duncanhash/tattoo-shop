@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>underdogs inkhouse- best tattoo shop in nairobi</title>
+    <meta name="description" content="link with the most skilled artists at underdogz inkhaus">
+    <link rel="stylesheet" href="assets/css/tattoo.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-left">
+        <!-- left: social links (TikTok, Instagram) -->
+        <a href="#" class="social-link" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+  <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
+</svg>
+        </a>
+        <a href="underdogz_inkhaus_" class="social-link" aria-label="Instagram">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zM18.5 6a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"/></svg>
+        </a>
+    </div>
+
+    <div class="header-center">
+        <!-- center: logo on top, nav below -->
+        <a href="index.php" class="site-logo"><img src="assets/photos/underdog.png" alt="UNDERDOGS INKHOUSE logo"></a>
+        <nav class="nav">
+            <a href="index.php" id="nav-home">home</a>
+            <a href="#" data-panel="services">services</a>
+            <a href="#" data-panel="gallery">gallery</a>
+            <a href="#" data-panel="contact">contact</a>
+        </nav>
+    </div>
+
+    <div class="header-right">
+        <!-- right: contact email and phone -->
+        <button type="button" class="icon-pop" aria-expanded="false" aria-label="Email">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-1.11-.89-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span class="icon-pop-text">Email: <a href="mailto:stephenquins400@gmail.com">stephenquins400@gmail.com</a></span>
+        </button>
+        <button type="button" class="icon-pop" aria-expanded="false" aria-label="Phone">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.56.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.23.2 2.44.57 3.56a1 1 0 0 1-.24 1.02l-2.2 2.2z"/></svg>
+            <span class="icon-pop-text">Call: <a href="tel:0759982301">0759982301</a></span>
+        </button>
+    </div>
+</header>
+
+<!-- Login/registration removed per request -->
+
+<section class="hero-intro" id="intro">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/photos/background.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-eyebrow">Underdogs Inkhouse</p>
+        <h1>Ink that speaks your language.</h1>
+        <p class="hero-copy">We turn your vibe into art — custom tattoos, clean lines, and a chill studio where Gen Z energy meets serious skill. Bring your idea, we’ll make it iconic.</p>
+        <div class="hero-cta">
+            <a href="#booking" class="hero-btn">Book a session</a>
+            <a href="#canvas" class="hero-link">Try the canvas</a>
+        </div>
+    </div>
+</section>
+
+    <!-- Panel card for nav content (services/gallery/contact) -->
+    <div id="panel-card" class="panel-card" aria-hidden="true">
+        <div class="panel-inner">
+            <button class="panel-close" aria-label="Close panel">×</button>
+            <div class="panel-content" data-panel="home" hidden>
+                <h3>Home</h3>
+                <p>Welcome — this is the home summary. Use the dashboard after sign in for the full experience.</p>
+            </div>
+            <div class="panel-content" data-panel="services" hidden>
+                <h3>Services</h3>
+                <p>We keep it focused and do just two things extremely well.</p>
+                <ul>
+                    <li><strong>Tattoos:</strong> Custom designs, cover-ups, and touch-ups tailored to your style. Consultation included.</li>
+                    <li><strong>Snacks:</strong> Complimentary refreshments while you wait or get tattooed.</li>
+                </ul>
+            </div>
+                        <div class="panel-content" data-panel="gallery" hidden>
+                            <h3>Gallery</h3>
+                            <div class="gallery-grid">
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/nature.jpeg">
+                                    <img src="assets/photos/nature.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/bats.jpeg">
+                                    <img src="assets/photos/bats.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/crsoss.jpeg">
+                                    <img src="assets/photos/crsoss.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/fri.jpeg">
+                                    <img src="assets/photos/fri.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/WhatsApp Image 2026-01-22 at 19.38.18 (3).jpeg">
+                                    <img src="assets/photos/WhatsApp Image 2026-01-22 at 19.38.18 (3).jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/patterns.jpeg">
+                                    <img src="assets/photos/patterns.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/nilan.jpeg">
+                                    <img src="assets/photos/nilan.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/forarm.jpeg">
+                                    <img src="assets/photos/forarm.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/steps.jpeg">
+                                    <img src="assets/photos/steps.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/gurlie.jpeg">
+                                    <img src="assets/photos/gurlie.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/pewpew.jpeg">
+                                    <img src="assets/photos/pewpew.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/arm.jpeg">
+                                    <img src="assets/photos/arm.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/worrior.jpeg">
+                                    <img src="assets/photos/worrior.jpeg" alt="Gallery item">
+                                </div>
+                                <div class="gallery-item" tabindex="0" data-src="assets/photos/dragon.jpeg">
+                                    <img src="assets/photos/dragon.jpeg" alt="Gallery item">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/firedice.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/WhatsApp Image 2026-01-22 at 19.37.45.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/WhatsApp Image 2026-01-22 at 19.38.11 (1).jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/wena.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/vibes.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/everything.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="gallery-item" tabindex="0" ><img src="assets/photos/cross.jpeg">
+                                    <div class="gallery-placeholder" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" class="placeholder-icon"><path d="M21 19V5a2 2 0 0 0-2-2H5c-1.11 0-2 .9-2 2v14l4-3 3 4 6-6 7 4z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-content" data-panel="contact" hidden>
+                            <h3>Contact</h3>
+                            <div class="contact-list">
+                                <div class="contact-row">
+                                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-1.11-.89-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                    <span class="contact-label">Email:</span>
+                                    <a href="mailto:info@example.com">info@example.com</a>
+                                </div>
+                                <div class="contact-row">
+                                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zM18.5 6a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"/></svg>
+                                    <span class="contact-label">Instagram:</span>
+                                    <a href="#">underdogz_inkhaus_</a>
+                                </div>
+                                <div class="contact-row">
+                                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v6a4 4 0 0 0 4 4h6v-2h-4V6h-6zM6 8v8a6 6 0 1 0 6-6V8A2 2 0 0 1 6 8z"/></svg>
+                                    <span class="contact-label">TikTok:</span>
+                                    <a href="#">@underdogs_ink</a>
+                                </div>
+                                <div class="contact-row">
+                                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.2V12h2.2V9.7c0-2.2 1.3-3.4 3.3-3.4.96 0 1.96.17 1.96.17v2.2h-1.12c-1.1 0-1.44.68-1.44 1.38V12h2.45l-.39 2.9h-2.06v7A10 10 0 0 0 22 12z"/></svg>
+                                    <span class="contact-label">Facebook:</span>
+                                    <a href="#">Underdogs Inkhouse</a>
+                                </div>
+                                <div class="contact-row">
+                                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.56.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.23.2 2.44.57 3.56a1 1 0 0 1-.24 1.02l-2.2 2.2z"/></svg>
+                                    <span class="contact-label">Phone:</span>
+                                    <a href="tel:07xxxx">0759982301</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-content" data-panel="canvas" hidden>
+                            <h3>Canvas Preview</h3>
+                            <div class="canvas-tool">
+                                <div class="canvas-preview" id="canvas-preview">
+                                    <img class="body-preview" id="body-preview" alt="Body preview">
+                                    <img class="tattoo-overlay" id="tattoo-overlay" alt="Tattoo preview">
+                                    <div class="preview-label">Preview</div>
+                                </div>
+                                <div class="canvas-controls">
+                                    <h4>3-step Canvas</h4>
+                                    <ol class="canvas-steps">
+                                        <li>Upload or take a photo of the body part.</li>
+                                        <li>Upload your tattoo design.</li>
+                                        <li>Remove the design background so only the ink remains.</li>
+                                    </ol>
+                                    <label>
+                                        Body photo
+                                        <input type="file" id="body-upload" accept="image/*" capture="environment">
+                                    </label>
+                                    <label>
+                                        Tattoo design (PNG/JPG)
+                                        <input type="file" id="design-upload" accept="image/png,image/jpeg,image/webp">
+                                    </label>
+                                    <div class="remove-row">
+                                        <button type="button" id="remove-bg">Remove background</button>
+                                        <label class="threshold-label">
+                                            Sensitivity
+                                            <input type="range" id="bg-threshold" min="5" max="80" step="1" value="30">
+                                        </label>
+                                    </div>
+                                    <p class="canvas-note">Best results with light or white design backgrounds.</p>
+                                    <p class="canvas-status" id="canvas-status" aria-live="polite"></p>
+                                    <label>
+                                        Scale
+                                        <input type="range" id="tattoo-scale" min="0.3" max="2.5" step="0.05" value="1">
+                                    </label>
+                                    <button type="button" id="reset-tattoo">Reset placement</button>
+                                </div>
+                                <canvas id="design-canvas" class="design-canvas" hidden></canvas>
+                            </div>
+                        </div>
+        </div>
+    </div>
+
+<section class="canvas" id="canvas" data-panel="canvas" role="button" tabindex="0" aria-label="Open canvas preview">
+    <p>
+        <strong>click </strong>to test what design fits your vibe.
+        Using our canvas visualization feature to view tattoos
+        on different body tones.
+    </p>
+</section>
+
+<section class="moving-section">
+    <div class="moving-track">
+        <div class="style"><img src="assets/photos/patterns.jpeg" alt="anime"></div>
+        <div class="style"><img src="assets/photos/buterfly.jpeg" alt="anime"></div>
+        <div class="style"><img src="assets/photos/dragon.jpeg" alt="img"></div>
+        <div class="style"><img src="assets/photos/WhatsApp Image 2026-01-22 at 19.38.18 (3).jpeg" alt="names"></div>
+        <div class="style"><img src="assets/photos/vibes.jpeg" alt="love"></div>
+        <div class="style"><img src="assets/photos/anime.jpeg" alt="love"></div>
+
+        <div class="style" ><img src="assets/photos/patterns.jpeg" alt="anime"></div>
+        <div class="style"><img src="assets/photos/buterfly.jpeg" alt="anime"></div>
+        <div class="style"><img src="assets/photos/dragon.jpeg" alt="img"></div>
+        <div class="style"><img src="assets/photos/WhatsApp Image 2026-01-22 at 19.38.18 (3).jpeg" alt="names"></div>
+        <div class="style"><img src="assets/photos/vibes.jpeg" alt="love"></div>
+        <div class="style"><img src="assets/photos/anime.jpeg" alt="love"></div>
+    </div>
+
+</section>
+
+<section class="booking" id="booking">
+    <div class="booking-inner">
+        <div class="booking-copy">
+            <p class="booking-eyebrow">Booking</p>
+            <h2>Reserve your session</h2>
+            <p>Tell us your idea, preferred body part, and availability. We will confirm your slot and artist match within 24 hours.</p>
+            <ul class="booking-list">
+                <li>Consultation and design planning</li>
+                <li>Artist match and price estimate</li>
+                <li>Schedule confirmation</li>
+            </ul>
+        </div>
+        <form class="booking-form" id="booking-form">
+            <label>
+                Full name
+                <input type="text" name="name" placeholder="Your name" required>
+            </label>
+            <label>
+                Phone or WhatsApp
+                <input type="tel" name="phone" placeholder="07xx xxx xxx" required>
+            </label>
+            <label>
+                Preferred date
+                <input type="date" name="date" required>
+            </label>
+            <label>
+                Body part + idea
+                <textarea name="idea" rows="3" placeholder="Forearm, shoulder, back..." required></textarea>
+            </label>
+            <button type="button" id="booking-submit">Request booking</button>
+            <p class="booking-note">No account needed. This opens your email app with your request.</p>
+            <p class="booking-status" id="booking-status" aria-live="polite"></p>
+        </form>
+    </div>
+</section>
+
+<section class="artists-section">
+    <h2>Meet our artists</h2>
+    <p>Meet our experienced artists.  login to view portfolios after.</p>
+
+    <div class="artist-row">
+        <div class="artist-photo">
+            <img src="assets/photos/quavo.jpeg" alt="quavo">
+            <div class="artist-name">Quavo</div>
+        </div>
+        <div class="artist-desc">
+            <h3>Quavo</h3>
+            <p>meet quavo,one of our finests artist,he is highly regarded for his signature patterns designs and mindblowing artistic perspective,he can portray your vague,idea into  existance.He is a naturally talented artist with over 5yrs of experince in tattoo industry</p>
+        </div>
+    </div>
+
+    <div class="artist-row reverse">
+        <div class="artist-photo">
+            <img src="assets/photos/quince.jpeg" alt="quince">
+            <div class="artist-name">Quince</div>
+        </div>
+        <div class="artist-desc">
+            <h3>Quince</h3>
+            <p>Quince,Well known for his signature anime designs and artistic ideas,he has always left clients amazedon how their ideas were almost came to life,his 3d arts are eye catching.Quince has been in the game for 4yrs always ready to make you you glow.</p>
+        </div>
+    </div>
+
+</section>
+
+<section class="skincare-section">
+    <h2>Skin Care & Aftercare</h2>
+    <p>Important aftercare tips to keep your tattoo looking great.</p>
+    <ul>
+        <li>Keep it clean</li>
+        <li>Moisturize with recommended products</li>
+        <li>Avoid direct sun for 2 weeks</li>
+    </ul>
+</section>
+
+<footer class="footer">
+    <div class="footer-left">
+        <h3>leave us a<br> message:</h3>
+        <form id="footer-message-form" class="footer-message">
+            <input type="text" id="footer-message" placeholder="your message" required>
+            <button type="button" id="footer-message-submit">Send message</button>
+        </form>
+        <p>or call 0759982301</p>
+    </div>
+    <div class="footer-right">
+        <h3>Location</h3>
+        <div class="contact">
+            <svg class="icon icon-pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <span class="contact-text">Kikuyu Town, Jooi Center, first floor, room No.39</span>
+        </div>
+        <div class="hours">
+            <svg class="icon icon-clock" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13h-1v6l5 3 .5-.86-4.5-2.64V7z"/></svg>
+            <span class="hours-text">Mon-Fri 9:00–18:00</span>
+        </div>
+       
+    </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<!-- Lightbox for fullscreen gallery viewing -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+        <button class="lightbox-close" aria-label="Close">×</button>
+        <div class="lightbox-media" role="img" aria-label="Full view">
+       
+        <!-- image will be injected here -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
