@@ -49,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var panelLinks = document.querySelectorAll('.nav a[data-panel]');
   function normalizePath(h) {
     if (!h) return '';
-    try { var u = new URL(h, window.location.origin); return u.pathname.split('/').pop() || 'index.php'; } catch (e) { return h.split('/').pop(); }
+    try { var u = new URL(h, window.location.origin); return u.pathname.split('/').pop() || 'index.html'; } catch (e) { return h.split('/').pop(); }
   }
   function applyNavActiveByPath(path) {
     navLinks.forEach(function (a) { a.classList.toggle('active', normalizePath(a.getAttribute('href')) === path); });
   }
   // determine current path and apply active class
-  var currentPath = window.location.pathname.split('/').pop() || 'index.php';
+  var currentPath = window.location.pathname.split('/').pop() || 'index.html';
   // if localStorage holds a chosen nav (from previous click), prefer that
   var stored = localStorage.getItem('navActive');
   if (stored) applyNavActiveByPath(normalizePath(stored)); else applyNavActiveByPath(currentPath);
@@ -70,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // When login opens, temporarily highlight home
   var previousActiveHref = null;
   function highlightHomeTemporarily() {
-    var homeLink = Array.prototype.find.call(navLinks, function (a) { return normalizePath(a.getAttribute('href')) === 'index.php'; });
+    var homeLink = Array.prototype.find.call(navLinks, function (a) { return normalizePath(a.getAttribute('href')) === 'index.html'; });
     var active = document.querySelector('.navigation a.active');
     previousActiveHref = active ? active.getAttribute('href') : null;
     if (homeLink) {
-      applyNavActiveByPath('index.php');
+      applyNavActiveByPath('index.html');
     }
   }
   function restoreNavAfterLogin() {
