@@ -1,7 +1,7 @@
-/* CHANGE: Imported a vintage-style font from Google Fonts (Cinzel). */
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
 
-/* RESET */
+
 *{
    margin:0;
    padding: 0;
@@ -9,24 +9,22 @@
 }
 
 :root{
-    /* CHANGE: added vintage color variables so you can tweak theme easily
-       Intensified palette below for stronger vintage/sepia tones */
-    --vintage-paper: #ecd9b8;   /* warmer paper tone */
-    --vintage-accent: #b27245;  /* deeper accent for highlights */
-    --vintage-dark: #1e160f;    /* darker text/ink color */
-    --vintage-muted: rgba(0, 0, 0, 0.769); /* used for separators/vignette edges */
-    /* global text shadow variables for sketchy/vintage effect */
+    
+    --vintage-paper: #ecd9b8;   
+    --vintage-accent: #b27245;  
+    --vintage-dark: #1e160f;    
+    --vintage-muted: rgba(0, 0, 0, 0.769); 
+    
     --text-shadow-small: 0 1px 0 rgba(0,0,0,0.35);
     --text-shadow-medium: 0 2px 0 rgba(0,0,0,0.45), 0 1px 6px rgba(0,0,0,0.12);
     --text-shadow-large: 0 3px 0 rgba(0,0,0,0.6), 0 1px 8px rgba(0,0,0,0.2);
 }
 
-/* CHANGE: apply vintage font and make background fill screen (cover).
-   To show the whole image instead, use `background-size: contain;` or `background-position` tweaks. */
+
 body{
     font-family: 'Cinzel', Georgia, 'Times New Roman', Times, serif;
     color: white;
-    /* CHANGE: increase base font-weight for better readability */
+    
     font-weight: 500;
     background: url('../photos/background2.jpeg') center / cover no-repeat fixed;
     display: flex;
@@ -36,18 +34,15 @@ body{
     font-size: 1em;
 }
 
-/* APPLY: consistent sketchy/vintage text-shadow across most textual elements
-   We apply a subtle shadow to body copy and stronger shadows to headings
-   and display labels. Form controls are excluded for legibility.
-*/
+
 body, p, li, .artist-desc, .footer, .contact-text, .hours-text { text-shadow: var(--text-shadow-small); }
 h1, h2, h3, .moving-section .style, .canvas p { text-shadow: var(--text-shadow-large); }
 .nav a, .logo, .loginbtn { text-shadow: var(--text-shadow-medium); }
 
-/* Keep form elements crisp */
+
 input, textarea, button { text-shadow: none; }
 
-/* HERO: Gen Z intro with video background */
+
 .hero-intro{
     position: relative;
     min-height: 82vh;
@@ -62,8 +57,9 @@ input, textarea, button { text-shadow: none; }
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit:cover;
     object-position: center;
+    
     z-index: 0;
     filter: contrast(1.22) saturate(0.9) sepia(0.28) brightness(0.9);
 }
@@ -97,13 +93,16 @@ input, textarea, button { text-shadow: none; }
 .hero-copy{
     font-size: 1.15rem;
     color: rgba(236,217,184,0.92);
-    max-width: 620px;
+    max-width: 800px;
+    padding: 30px;
+    margin: 30px;
 }
 .hero-cta{
     display: flex;
     gap: 14px;
-    margin-top: 24px;
+    margin-top: 100px;
     flex-wrap: wrap;
+    justify-content:center ;
 }
 .hero-btn{
     display: inline-flex;
@@ -128,17 +127,13 @@ input, textarea, button { text-shadow: none; }
 }
 .hero-link:hover{ border-color: var(--vintage-accent); }
 
-/* subtle paper/sepia overlay for vintage feel */
+
 body::after{
-    /* CHANGE: sepia + vignette overlay
-       - radial-gradient creates a darker vignette toward the edges
-       - linear-gradient adds the warm paper tone (sepia)
-       - mix-blend-mode:multiply lets the overlay tint the background
-    */
+    
     content: '';
     position: fixed;
     inset: 0;
-    /* first layer: vignette (darker edges), second: sepia paper wash */
+    
     background-image: radial-gradient(ellipse at center, rgba(4, 1, 1, 0.514) 0%, rgba(1, 0, 0, 0.422) 100%), linear-gradient(rgba(245,227,201,0.25), rgba(245,227,201,0.25));
     background-blend-mode: multiply, normal;
     mix-blend-mode: multiply;
@@ -146,18 +141,14 @@ body::after{
     z-index: -1;
 }
 
-/* CHANGE: subtle grain/film texture to enhance vintage feel
-   - placed in ::before so it layers above the background overlay
-   - uses a repeating-linear-gradient to simulate fine film grain lines
-   - low opacity keeps it subtle; increase opacity for stronger grain
-*/
+
 body::before{
     content: '';
     position: fixed;
     inset: 0;
-    /* thin repeating lines + tiny noise-like stripes */
+    
     background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.276) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,0.01) 0 1px, transparent 1px 6px);
-    opacity: 0.12; /* tweak this for more/less grain */
+    opacity: 0.12; 
     mix-blend-mode: overlay;
     pointer-events: none;
     z-index: -1;
@@ -166,10 +157,7 @@ body::before{
 h1, h2, h3, .moving-section .style, .canvas p { text-shadow: var(--text-shadow-large); }
 .nav a, .logo, .loginbtn { text-shadow: var(--text-shadow-medium); }
 
-/* CHANGE: Option B — higher contrast body text for readability over background
-    We switched body/paragraph text to the darker ink color so content
-    is more readable when background images are light or high-contrast.
-*/
+
 p, li { color: var(--vintage-paper); }
 .footer{
     padding: 28px;
@@ -192,7 +180,7 @@ body.scrolled .site-header{ padding:6px 12px; }
 body.scrolled .site-logo img{ width:100px; }
 body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 
-/* Improve section contrast against lighting overlay */
+
 .artists-section, .skincare-section, .canvas, .moving-section{ position: relative; }
 .artists-section::before, .skincare-section::before, .canvas::before, .moving-section::before{
     content: '';
@@ -227,7 +215,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     transform: scaleX(1);
 }
 
-/* Make active nav link a golden/accent color when active or when a panel is open */
+
 .nav a.active{ color: var(--vintage-accent); }
 .nav a[data-panel].active{ color: var(--vintage-accent); }
 
@@ -236,50 +224,39 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    /* CHANGE: increase visible height so images/cards have more room */
+    
     padding: 80px;
     width: 100%;
     margin: 80px;
-    min-height: 500px; /* visible area height for the conveyor */
+    min-height: 500px; 
     border-top: 3px solid rgba(255,255,255,0.04);
     border-bottom: 3px solid rgba(255,255,255,0.04);
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274));
 }
 .moving-section{
-    /* CHANGE: make the visible area clip overflowing track so the
-       items appear to enter/exit the viewport like a conveyor */
-    overflow: hidden; /* hides the duplicated track overflow */
+    
+    overflow: hidden; 
 }
 
-/* MOVING TRACK (conveyor) */
+
 .moving-track{
-    /* display as a single horizontal row */
+    
     display: flex;
     align-items: center;
     
 
-    /* The animation below translates the whole track to the left.
-       We duplicate the content in HTML so moving -50% shows the
-       second copy seamlessly when the first copy has moved out.
-       The animation duration controls the speed: increase duration
-       for slower movement, decrease for faster.
-    */
+    
     animation: scrollTrack 25s linear infinite;
 }
 
 
 
-/* Respect user preference for reduced motion */
+
 @media (prefers-reduced-motion: reduce){
     .moving-track{ animation: none; }
 }
 
-/* Keyframes: move from 0 --> -50% of the track width (one full copy)
-   Note: This works because the HTML contains two identical sets of items
-   concatenated inside .moving-track. When the animation reaches -50%,
-   the second copy lines up exactly where the first started, producing
-   a seamless loop.
-*/
+
 @keyframes scrollTrack{
     0%{ transform: translateX(0); }
     100%{ transform: translateX(-50%); }
@@ -287,17 +264,17 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 
 .style{
     position: relative;
-    min-width: 240px; /* card width for each conveyor item */
-    min-height: 280px; /* card height so images fit nicely */
+    min-width: 240px; 
+    min-height: 280px; 
     font-size: 24px;
-    display: flex; /* center content inside the card */
+    display: flex; 
     align-items: center;
     justify-content: center;
 }
 
 
 
-/* Big typographic labels for the conveyor (sketchy, bold display) */
+
 .moving-section .style{
     font-family: 'Cinzel', serif;
     font-size: 36px;
@@ -317,7 +294,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     justify-content: space-between;
     align-items: center;
     position: relative;
-    /* keep footer darker but translucent to show the aged overlay */
+    
     background: rgba(6,4,3,0.48);
     margin-top: auto;
     width: 100%;
@@ -325,24 +302,21 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 
 
 
-/* vertical separator between left and right in footer */
+
 
 @media (max-width: 720px){
     .footer{ flex-direction: column; }
     .footer-right{ border-left: none; padding-left: 0; border-top: 1px solid rgba(236,217,184,0.08); padding-top: 12px; margin-top: 12px; }
 }
 
-/* Panel contact rows (inside the panel card) */
+
 .contact-list{ margin-top:12px; }
 .contact-row{ display:flex; align-items:center; gap:12px; margin:8px 0; color: var(--vintage-paper); }
 .contact-row .icon{ width:18px; height:18px; fill: var(--vintage-accent); opacity:0.95; }
 .contact-row .contact-label{ font-weight:700; color: var(--vintage-paper); width:120px; min-width:120px; }
 .contact-row a{ color: var(--vintage-paper); text-decoration:underline; }
 
-/* Icons: simple styling for inline SVGs used across the site
-   - We set a default width/height and use the vintage accent as fill
-   - Use `currentColor` or explicit `fill` if you need different behavior
-*/
+
 .icon{
     width: 25px;
     height: 25px;
@@ -357,7 +331,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .socials .icon, .social-link .icon{ fill: var(--vintage-paper); opacity: 0.95; }
 .social-link{ display:inline-flex; align-items:center; margin-left:10px; padding:6px; border-radius:4px; }
 
-/* BOOKING: first section */
+
 .booking{
     padding: 80px 40px;
     background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));
@@ -428,7 +402,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .booking-status.error{ color: #f2a39a; }
 .booking-status.success{ color: #9fe3b2; }
 
-/* CANVAS: video hero area. Text remains above video. */
+
 .canvas{
     min-height: 360px;
     position: relative;
@@ -577,7 +551,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     cursor: pointer;
 }
 
-/* HERO text styling to match the mock: big, elegant, sketchy shadow */
+
 .canvas p, .canvas h2{
     max-width: 900px;
     font-size: 44px;
@@ -594,9 +568,9 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .tattoo-overlay{ transition: none; }
 }
 
-/* Artists and Skincare sections styling to add content and increase scroll length */
+
 .artists-section, .skincare-section{
-    /* slightly larger padding and controlled max-width for emphasis */
+    
     padding: 80px 40px;
     min-height: 420px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274));
@@ -620,11 +594,11 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .artist-list{ display:flex; gap:16px; margin-top:16px; }
 .artist{ background: rgba(0, 0, 0, 0.12); padding:16px; border-radius:6px; min-width:160px; }
 
-/* NEW: alternating artist rows with photo + description */
+
 .artist-row{
     display:flex;
     align-items:center;
-    gap:48px; /* more breathing room between photo and text */
+    gap:48px; 
     margin: 2rem 0;
 }
 .artists-section h3{
@@ -632,7 +606,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 }
 .artist-row.reverse{ flex-direction: row-reverse; }
 .artist-photo{
-    /* make photos larger for two-artist layout */
+    
     flex: 0 0 320px;
     position: relative;
     width: 320px;
@@ -655,22 +629,22 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 }
 .artist-desc{ max-width:60%; color: var(--vintage-dark); }
 
-/* Overlay artist name on top of the photo */
+
 .artist-photo{ position: relative; overflow: hidden; }
 .artist-photo .artist-name{ position: absolute; left: 12px; top: 12px; z-index: 5; background: rgba(0,0,0,0.45); color: var(--vintage-paper); padding: 6px 10px; font-weight:700; border-radius:4px; opacity: 0; transform: translateY(-6px); transition: opacity 320ms ease, transform 320ms ease; }
 .artist-row.in-view .artist-photo .artist-name{ opacity: 1; transform: translateY(0); }
 
-/* When names overlay, hide duplicate title in desc area for clarity on small screens */
+
 .artist-desc h3{ display: none; }
 
 .artists-section h2{ font-size: 2rem; color: var(--vintage-paper); margin-bottom: 8px; }
 .artists-section h3{ font-size: 1.25rem; color: var(--vintage-accent); margin-bottom: 6px; }
 .artist-desc p{ font-size: 1rem; line-height: 1.5; color: var(--vintage-paper); }
 
-/* stronger weights for small UI text in footer and cards */
+
 .footer, .footer .contact-text, .footer .hours-text, .artist-desc, .artist-desc p{ font-weight: 600; color: var(--vintage-paper);}
 
-/* Responsive: stack on small screens */
+
 @media (max-width: 880px){
     .artist-row{ flex-direction: column; }
     .artist-desc::after{content: ''; display: block; width: 100%; height: 1px; background: #ccc; margin-top: 3em;}
@@ -679,14 +653,14 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .artist-desc{ max-width:100%; }
 }
 
-/* Responsive header & site optimizations */
+
 @media (max-width: 1100px){
     .header-center img{ width: 140px; }
     .moving-section{ padding: 48px; margin: 40px; }
 }
 
 @media (max-width: 880px){
-    /* Stack header items on small screens and stop absolute centering */
+    
     .site-header{ padding: 12px 16px; }
     .header-center{ position: static; transform: none; margin: 0 auto; top: auto; left: auto; }
     .header-left, .header-right{ width: 100%; display:flex; justify-content: space-between; align-items:center; margin-top: 8px; }
@@ -699,7 +673,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .canvas-tool{ grid-template-columns: 1fr; }
     .canvas-preview{ min-height: 320px; }
     .moving-section{ padding: 28px; margin: 20px; min-height: 240px; }
-    /* reduce heavy visual effects to improve performance on mobile */
+    
     body::before{ display: none; }
     #panel-card .panel-inner, .lightbox-inner{ backdrop-filter: none; }
 }
@@ -713,7 +687,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .footer{ flex-direction: column; align-items: stretch; }
 }
 
-/* subtle frame around site content to imitate the worn paper border */
+
 .content-frame{
     position: relative;
     margin: 20px auto;
@@ -722,16 +696,16 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     box-shadow: inset 0 0 0 4px rgba(236,217,184,0.06), 0 12px 40px rgba(0,0,0,0.6);
 }
 
-/* small screens: reduce hero size and spacing */
+
 @media (max-width: 720px){
     .canvas p{ font-size: 22px; padding: 28px 12px; }
     .moving-section .style{ font-size: 20px; letter-spacing: 2px; padding: 18px; }
 
 }
 
-/* legacy footer rules removed - footer now uses a two-column layout defined earlier */
 
-/* image support for .style sections */
+
+
 .style.bg{ background-size: cover; background-position: center; background-repeat: no-repeat; color: var(--vintage-paper); }
 .style img{
     width:auto;
@@ -743,7 +717,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     box-shadow: 0 0 20px black;
 }
 
-/* === Header: fresh three-part layout (left / center / right) === */
+
 .site-header{
     position: sticky;
     top: 0;
@@ -758,7 +732,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 }
 .header-left, .header-right{ display:flex; align-items:center; }
 .header-left{ gap:12px; }
-/* Keep center block in the header flow and center it via grid */
+
 .header-center{
     position: relative;
     display:flex;
@@ -774,14 +748,14 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .nav a{ color: var(--vintage-paper); text-decoration: none; font-weight:700; padding:6px 8px; position: relative; }
 .nav a::after{ content:''; position:absolute; left:0; bottom:-4px; height:2px; width:100%; background:var(--vintage-accent); transform: scaleX(0); transform-origin: left center; transition: transform .22s ease; }
 .nav a:hover::after, .nav a.active::after{ transform: scaleX(1); }
-/* Email icon link styling */
+
 .contact-link{ display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; color: var(--vintage-paper); text-decoration: none; background: transparent; border-radius:6px; }
 .contact-link .icon{ width:20px; height:20px; fill: currentColor; display:block; }
 .contact-link:hover{ background: rgba(255,255,255,0.04); }
 .contact-icon{ display:flex; align-items:center; gap:8px; color:var(--vintage-paper); }
 .contact-icon .phone-icon{ width:22px; height:22px; fill:var(--vintage-accent); }
 
-/* Icon popover */
+
 .icon-pop{
     position: relative;
     display: inline-flex;
@@ -828,24 +802,24 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .header-center{ order: 0; }
 }
 
-/* subtle card look for each `.style` inside `.moving-section` */
+
 .moving-section .style{ background: rgba(0,0,0,0.15); padding: 28px; border-radius: 6px; }
 
-/* Login/registration styles removed per request */
 
-/* Panel card for nav items */
+
+
 #panel-card{ position: fixed; left: 18px; right: 18px; top: 110px; bottom: 20px; display:flex; align-items:center; justify-content:center; opacity:0; transform: translateY(8px); transition: opacity 220ms ease, transform 220ms ease; pointer-events:none; z-index:210; }
 #panel-card.show{ opacity:1; transform: translateY(0); pointer-events:auto; }
 #panel-card .panel-inner{ width:92%; max-width:760px; padding:22px; background: rgba(12,10,8,0.35); border:2px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px); color:var(--vintage-paper); border-radius:6px; }
 #panel-card .panel-close{ position:absolute; right:18px; top:14px; background:transparent; border:none; color:var(--vintage-paper); font-size:20px; cursor:pointer; }
 #panel-card .panel-content{ max-height:60vh; overflow:auto; padding-top:6px; }
 
-/* When the gallery is open, allow a larger panel for bigger gallery cards */
+
 #panel-card.panel-gallery .panel-inner{ max-width:1100px; padding:28px; }
-/* Canvas panel: a bit wider to fit preview + controls */
+
 #panel-card.panel-canvas .panel-inner{ max-width:1150px; padding:28px; }
 
-/* Gallery grid: icon-like tiles with transparent background and 3D hover/click effects */
+
 .gallery-grid{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -867,7 +841,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 }
 .gallery-item img{ width:100%; height:100%; object-fit: cover; display:block; filter: saturate(0.98) contrast(0.98); }
 
-/* Hover: lift and slight 3D rotate; active: pressed feel */
+
 .gallery-item:hover{ transform: translateY(-10px) rotateX(4deg) scale(1.03); box-shadow: 0 18px 38px rgba(0,0,0,0.5); }
 .gallery-item:active{ transform: translateY(2px) rotateX(0deg) scale(0.985); box-shadow: 0 6px 12px rgba(0,0,0,0.35) inset; }
 
@@ -880,7 +854,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     .gallery-item{ height: 120px; }
 }
 
-/* Placeholder tile styling when images are not yet provided */
+
 .gallery-placeholder{
     width:100%; height:100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, rgba(236,217,184,0.02), rgba(0,0,0,0.03));
     color: var(--vintage-accent); box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
@@ -888,7 +862,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .placeholder-icon{ width:42px; height:42px; fill: var(--vintage-accent); opacity:0.9; }
 .gallery-item[data-src]:hover .placeholder-icon{ transform: scale(1.04); }
 
-/* Lightbox overlay for fullscreen view */
+
 .lightbox{ position: fixed; inset: 0; display: none; align-items:center; justify-content:center; background: rgba(6,4,3,0.8); z-index: 9999; }
 .lightbox.show{ display:flex; }
 .lightbox-inner{ width: 92%; max-width: 1200px; padding: 22px; background: rgba(12,10,8,0.85); border: 2px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px) saturate(0.95); color: var(--vintage-paper); border-radius:8px; position:relative; }
@@ -898,10 +872,11 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 
 @media (max-width:720px){ .lightbox-inner{ padding:14px; } .lightbox-media img{ max-height:60vh; } }
 
-/* Blur background when a panel is open; header remains active */
+
 body.panel-active .canvas,
 body.panel-active .moving-section,
 body.panel-active .artists-section,
 body.panel-active .skincare-section,
 body.panel-active .footer{ filter: blur(5px) saturate(0.92); transition: filter 200ms ease; pointer-events: none; user-select: none; }
 body.panel-active .site-header{ filter: none; pointer-events: auto; }
+
