@@ -197,14 +197,12 @@
                             <h3>Canvas Preview</h3>
                             <div class="canvas-tool">
                                 <div class="canvas-preview" id="canvas-preview">
-                                    <img class="body-preview" id="body-preview" alt="Body preview">
                                     <img class="tattoo-overlay" id="tattoo-overlay" alt="Tattoo preview" draggable="false">
                                     <div class="canvas-toolbar" role="group" aria-label="Canvas tools">
                                         <button type="button" class="canvas-tool-btn" id="body-edit-toggle">Edit body</button>
-                                        <button type="button" class="canvas-tool-btn" id="body-zoom-out" aria-label="Zoom out body">Body -</button>
-                                        <button type="button" class="canvas-tool-btn" id="body-zoom-in" aria-label="Zoom in body">Body +</button>
                                         <button type="button" class="canvas-tool-btn" id="design-rotate-left" aria-label="Rotate design left">Rotate -</button>
                                         <button type="button" class="canvas-tool-btn" id="design-rotate-right" aria-label="Rotate design right">Rotate +</button>
+                                        <button type="button" class="canvas-tool-btn" id="design-undo" aria-label="Undo last design change">Undo</button>
                                         <button type="button" class="canvas-tool-btn" id="save-canvas">Save</button>
                                     </div>
                                     <div class="preview-label">Preview</div>
@@ -284,18 +282,22 @@
                 <li>Schedule confirmation</li>
             </ul>
         </div>
-        <form class="booking-form" id="booking-form">
+        <form class="booking-form" id="booking-form" action="https://formspree.io/f/xkovgdrp" method="POST">
             <label>
                 Name:
-                <input type="text" name="name" placeholder="Your name" required>
+                <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
             </label>
             <label>
                 Phone:
-                <input type="tel" name="phone" placeholder="your number" required>
+                <input type="tel" name="phone" placeholder="your number" autocomplete="tel" required>
             </label>
             <label>
                 your preferred date the date:
                 <input type="date" name="date" required>
+            </label>
+            <label>
+                Tattoo idea / body part:
+                <textarea name="idea" rows="4" placeholder="Describe the design and placement" required></textarea>
             </label>
            
             <button type="button" id="booking-submit">Request booking</button>
@@ -346,8 +348,8 @@
 <footer class="footer">
     <div class="footer-left">
         <h3>leave us a<br> message:</h3>
-        <form id="footer-message-form" class="footer-message">
-            <input type="text" id="footer-message" placeholder="your message" required>
+        <form id="footer-message-form" class="footer-message" action="https://formspree.io/f/xkovgdrp" method="POST">
+            <input type="text" id="footer-message" name="message" placeholder="your message" required>
             <button type="button" id="footer-message-submit">Send message</button>
         </form>
         <p>or call 0759982301</p>

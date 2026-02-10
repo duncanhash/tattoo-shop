@@ -438,20 +438,17 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .canvas-preview{
     position: relative;
     width: 100%;
-    min-height: 420px;
+    min-height: 520px;
     border-radius: 8px;
-    background: linear-gradient(180deg, rgba(20,16,13,0.35), rgba(0,0,0,0.25));
+    background:
+        linear-gradient(180deg, rgba(20,16,13,0.25), rgba(0,0,0,0.35)),
+        var(--body-preview, url('../photos/canvas%20background.png'));
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, var(--body-zoom, cover);
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
     overflow: hidden;
-}
-.body-preview{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
 }
 .canvas-preview .preview-label{
     position: absolute;
@@ -478,7 +475,54 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));
     z-index: 2;
 }
+.tattoo-overlay:not([src]),
+.tattoo-overlay[src=""]{
+    opacity: 0;
+    pointer-events: none;
+}
 .tattoo-overlay:active{ cursor: grabbing; }
+.canvas-toolbar{
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(8,6,5,0.72);
+    border: 1px solid rgba(236,217,184,0.12);
+    backdrop-filter: blur(6px);
+    z-index: 3;
+}
+.canvas-tool-btn{
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(236,217,184,0.15);
+    color: var(--vintage-paper);
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.canvas-tool-btn:hover{
+    border-color: rgba(178,114,69,0.7);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+.canvas-tool-btn:active{ transform: translateY(1px); }
+.canvas-tool-btn:focus-visible{
+    outline: none;
+    border-color: rgba(178,114,69,0.9);
+    box-shadow: 0 0 0 2px rgba(178,114,69,0.35);
+}
+.canvas-tool-btn#save-canvas{
+    background: var(--vintage-accent);
+    color: #120b07;
+    border: none;
+}
+.canvas-tool-btn#save-canvas:hover{ filter: brightness(1.06); }
 .canvas-controls{
     display: grid;
     gap: 12px;
@@ -493,6 +537,26 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
     gap: 12px;
     align-items: center;
     flex-wrap: wrap;
+}
+#remove-bg{
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.45);
+    color: var(--vintage-paper);
+    border: 1px solid rgba(236,217,184,0.18);
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+#remove-bg:hover{
+    border-color: rgba(178,114,69,0.7);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+#remove-bg:active{ transform: translateY(1px); }
+#remove-bg:focus-visible{
+    outline: none;
+    border-color: rgba(178,114,69,0.9);
+    box-shadow: 0 0 0 2px rgba(178,114,69,0.35);
 }
 .threshold-label{
     display: grid;
@@ -721,7 +785,7 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 .site-header{
     position: sticky;
     top: 0;
-    z-index: 120;
+    z-index: 240;
     background: rgba(0,0,0,0.36);
     backdrop-filter: blur(6px);
     display: grid;
@@ -813,6 +877,21 @@ body.scrolled .nav a{ padding: 6px 8px; font-size: 0.95rem; }
 #panel-card .panel-inner{ width:92%; max-width:760px; padding:22px; background: rgba(12,10,8,0.35); border:2px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px); color:var(--vintage-paper); border-radius:6px; }
 #panel-card .panel-close{ position:absolute; right:18px; top:14px; background:transparent; border:none; color:var(--vintage-paper); font-size:20px; cursor:pointer; }
 #panel-card .panel-content{ max-height:60vh; overflow:auto; padding-top:6px; }
+#panel-card .panel-content[data-panel="contact"]{
+    background: linear-gradient(rgba(8,6,5,0.65), rgba(8,6,5,0.7));
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+}
+#panel-card .panel-content[data-panel="contact"] .contact-list{
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    margin-top: 16px;
+}
+#panel-card .panel-content[data-panel="contact"] .contact-row{
+    justify-content: center;
+}
 
 
 #panel-card.panel-gallery .panel-inner{ max-width:1100px; padding:28px; }
@@ -879,4 +958,199 @@ body.panel-active .artists-section,
 body.panel-active .skincare-section,
 body.panel-active .footer{ filter: blur(5px) saturate(0.92); transition: filter 200ms ease; pointer-events: none; user-select: none; }
 body.panel-active .site-header{ filter: none; pointer-events: auto; }
+
+
+.canvas-tool{
+    gap: 32px;
+}
+
+.canvas-preview{
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(236,217,184,0.08), transparent 45%),
+        linear-gradient(120deg, rgba(255,255,255,0.04), rgba(0,0,0,0.08)),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 6px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 6px),
+        var(--body-preview, url('../photos/canvas%20background.png'));
+    background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
+    background-position: center, center, center, center, center;
+    background-size: auto, auto, auto, auto, cover;
+    border: 1px solid rgba(236,217,184,0.14);
+}
+
+.canvas-preview::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,4,3,0.25), rgba(6,4,3,0.55));
+    z-index: 0;
+}
+
+.canvas-preview .preview-label{
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.canvas-controls{
+    background: rgba(8,6,5,0.55);
+    border: 1px solid rgba(236,217,184,0.12);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+    backdrop-filter: blur(4px);
+}
+
+.canvas-controls label{
+    font-size: 0.92rem;
+    letter-spacing: 0.02em;
+}
+
+.canvas-controls select,
+.canvas-controls input[type="file"],
+.canvas-controls input[type="range"]{
+    width: 100%;
+    appearance: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.canvas-controls select:focus,
+.canvas-controls input[type="file"]:focus,
+.canvas-controls input[type="range"]:focus{
+    outline: none;
+    border-color: rgba(178,114,69,0.7);
+    box-shadow: 0 0 0 2px rgba(178,114,69,0.25);
+    background: rgba(12,10,8,0.45);
+}
+
+.canvas-controls input[type="file"]{
+    padding: 6px;
+}
+
+.canvas-controls input[type="file"]::file-selector-button{
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--vintage-accent);
+    color: #120b07;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.canvas-controls input[type="file"]::file-selector-button:hover{
+    filter: brightness(1.05);
+}
+
+.canvas-controls input[type="range"]{
+    height: 6px;
+    background: linear-gradient(90deg, rgba(236,217,184,0.5), rgba(178,114,69,0.75));
+    border-radius: 999px;
+    border: none;
+}
+
+.canvas-controls input[type="range"]::-webkit-slider-thumb{
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--vintage-paper);
+    border: 2px solid rgba(178,114,69,0.85);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.canvas-controls input[type="range"]::-moz-range-thumb{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--vintage-paper);
+    border: 2px solid rgba(178,114,69,0.85);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.canvas-steps{
+    background: rgba(0,0,0,0.25);
+    border: 1px dashed rgba(236,217,184,0.18);
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+.canvas-steps li{
+    margin: 6px 0;
+}
+
+.canvas-note{
+    font-style: italic;
+}
+
+.preset-row{
+    gap: 10px;
+}
+
+.preset{
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.preset:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+.preset:active{
+    transform: translateY(1px);
+}
+
+.preset:focus-visible,
+#reset-tattoo:focus-visible{
+    outline: none;
+    border-color: rgba(178,114,69,0.9);
+    box-shadow: 0 0 0 2px rgba(178,114,69,0.35);
+}
+
+#reset-tattoo{
+    transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+#reset-tattoo:hover{
+    filter: brightness(1.06);
+}
+
+#reset-tattoo:active{
+    transform: translateY(1px);
+}
+
+.remove-row{
+    padding-top: 4px;
+    border-top: 1px solid rgba(236,217,184,0.08);
+}
+
+.canvas-status{
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.canvas-status.error{
+    background: rgba(242,163,154,0.15);
+    border: 1px solid rgba(242,163,154,0.35);
+}
+
+.canvas-status.success{
+    background: rgba(159,227,178,0.12);
+    border: 1px solid rgba(159,227,178,0.35);
+}
+
+@media (max-width: 880px){
+    .canvas-controls{ padding: 16px; }
+    .canvas-preview{ min-height: 380px; }
+}
+
+@media (max-width: 520px){
+    .canvas-controls{ padding: 14px; }
+    .canvas-preview .preview-label{ font-size: 0.8rem; }
+    .canvas-status{ width: 100%; justify-content: center; }
+    .canvas-preview{ min-height: 320px; }
+}
 

@@ -169,20 +169,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Login/registration handlers removed per request
 
-  // Booking + footer message: mailto links (no backend required)
+  // Booking + footer message: Formspree submissions
   (function () {
     var bookingBtn = document.getElementById('booking-submit');
     var bookingForm = document.getElementById('booking-form');
     var bookingStatus = document.getElementById('booking-status');
     var footerBtn = document.getElementById('footer-message-submit');
     var footerMsg = document.getElementById('footer-message');
-    var emailTo = 'stephenquins400@gmail.com';
+    var formspreeEndpoint = 'https://formspree.io/f/xkovgdrp';
 
-    function openMail(subject, body) {
-      var url = 'mailto:' + encodeURIComponent(emailTo) +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-      window.location.href = url;
+    function postForm(form, extraFields) {
+      var data = new FormData(form);
+      if (extraFields) {
+        Object.keys(extraFields).forEach(function (key) {
+          data.append(key, extraFields[key]);
+        });
+      }
+      return fetch(formspreeEndpoint, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
     }
 
     function setBookingStatus(text, kind) {
@@ -199,19 +206,23 @@ document.addEventListener('DOMContentLoaded', function () {
         setBookingStatus('Please fill all required fields.', 'error');
         return;
       }
-      var name = bookingForm.querySelector('[name="name"]').value.trim();
-      var phone = bookingForm.querySelector('[name="phone"]').value.trim();
-      var date = bookingForm.querySelector('[name="date"]').value;
-      var idea = bookingForm.querySelector('[name="idea"]').value.trim();
-      var subject = 'Tattoo Booking Request';
-      var body = [
-        'Name: ' + name,
-        'Phone/WhatsApp: ' + phone,
-        'Preferred date: ' + date,
-        'Body part + idea: ' + idea
-      ].join('\n');
-      setBookingStatus('Opening your email app...', 'success');
-      openMail(subject, body);
+      bookingBtn.disabled = true;
+      setBookingStatus('Sending your request...', 'success');
+      postForm(bookingForm, {
+        _subject: 'Tattoo Booking Request',
+        form_type: 'booking_request'
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Form submission failed');
+          setBookingStatus('Success! Your request has been sent.', 'success');
+          bookingForm.reset();
+        })
+        .catch(function () {
+          setBookingStatus('Sorry, something went wrong. Please try again or call us.', 'error');
+        })
+        .finally(function () {
+          bookingBtn.disabled = false;
+        });
     }
 
     if (bookingBtn && bookingForm) {
@@ -223,7 +234,34 @@ document.addEventListener('DOMContentLoaded', function () {
       footerBtn.addEventListener('click', function () {
         var msg = footerMsg.value.trim();
         if (!msg) return;
-        openMail('Website Message', msg);
+        footerBtn.disabled = true;
+        var footerForm = document.getElementById('footer-message-form');
+        if (!footerForm) return;
+        var status = bookingStatus;
+        if (status) {
+          status.textContent = 'Sending your message...';
+          status.classList.remove('error');
+          status.classList.add('success');
+        }
+        postForm(footerForm, {
+          _subject: 'Website Message',
+          form_type: 'footer_message'
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('Form submission failed');
+            if (status) status.textContent = 'Success! Your message has been sent.';
+            footerForm.reset();
+          })
+          .catch(function () {
+            if (status) {
+              status.textContent = 'Sorry, your message could not be sent. Please try again.';
+              status.classList.remove('success');
+              status.classList.add('error');
+            }
+          })
+          .finally(function () {
+            footerBtn.disabled = false;
+          });
       });
     }
   })();
@@ -232,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function () {
   (function () {
     var preview = document.getElementById('canvas-preview');
     var overlay = document.getElementById('tattoo-overlay');
-    var bodyPreview = document.getElementById('body-preview');
     var bodyUpload = document.getElementById('body-upload');
     var designUpload = document.getElementById('design-upload');
     var removeBg = document.getElementById('remove-bg');
@@ -241,13 +278,21 @@ document.addEventListener('DOMContentLoaded', function () {
     var status = document.getElementById('canvas-status');
     var scale = document.getElementById('tattoo-scale');
     var reset = document.getElementById('reset-tattoo');
+    var bodyEditToggle = document.getElementById('body-edit-toggle');
+    var rotateLeft = document.getElementById('design-rotate-left');
+    var rotateRight = document.getElementById('design-rotate-right');
+    var undoBtn = document.getElementById('design-undo');
+    var saveBtn = document.getElementById('save-canvas');
     if (!preview || !overlay || !designCanvas) return;
 
-    var state = { x: 0, y: 0, scale: 1 };
+    var state = { x: 0, y: 0, scale: 1, rotate: 0 };
     var designImage = null;
     var designOriginal = null;
     var hasBody = false;
     var hasDesign = false;
+    var isBodyEditing = false;
+    var undoStack = [];
+    var bodyUrl = '';
     var ctx = designCanvas.getContext('2d', { willReadFrequently: true });
     function setStatus(text, kind) {
       if (!status) return;
@@ -255,19 +300,63 @@ document.addEventListener('DOMContentLoaded', function () {
       status.classList.remove('error', 'success');
       if (kind) status.classList.add(kind);
     }
+    function pushUndo() {
+      if (!hasDesign) return;
+      undoStack.push({
+        x: state.x,
+        y: state.y,
+        scale: state.scale,
+        rotate: state.rotate,
+        dataUrl: overlay.getAttribute('src') || ''
+      });
+      if (undoStack.length > 25) undoStack.shift();
+    }
+    function applyUndo(entry) {
+      if (!entry) return;
+      state.x = entry.x;
+      state.y = entry.y;
+      state.scale = entry.scale;
+      state.rotate = entry.rotate;
+      applyTransform();
+      if (entry.dataUrl) overlay.src = entry.dataUrl;
+    }
     function applyTransform() {
       overlay.style.transform =
         'translate(calc(-50% + ' + state.x + 'px), calc(-50% + ' + state.y + 'px)) ' +
-        'scale(' + state.scale + ')';
+        'scale(' + state.scale + ') ' +
+        'rotate(' + state.rotate + 'deg)';
     }
     applyTransform();
 
-    if (bodyUpload && bodyPreview) {
+    var maxImageBytes = 8 * 1024 * 1024;
+    var bodyObjectUrl = '';
+    var designObjectUrl = '';
+
+    function revokeUrl(url) {
+      if (url) URL.revokeObjectURL(url);
+    }
+
+    function isAllowedImage(file) {
+      if (!file) return false;
+      if (!file.type || file.type.indexOf('image/') !== 0) return false;
+      if (file.size > maxImageBytes) return false;
+      return true;
+    }
+
+    if (bodyUpload) {
       bodyUpload.addEventListener('change', function () {
         var file = bodyUpload.files && bodyUpload.files[0];
         if (!file) return;
+        if (!isAllowedImage(file)) {
+          setStatus('Please upload a valid image under 8MB.', 'error');
+          bodyUpload.value = '';
+          return;
+        }
+        revokeUrl(bodyObjectUrl);
         var url = URL.createObjectURL(file);
-        bodyPreview.src = url;
+        bodyObjectUrl = url;
+        preview.style.setProperty('--body-preview', 'url("' + url + '")');
+        bodyUrl = url;
         hasBody = true;
         setStatus('Step 1 done. Now upload your tattoo design.', 'success');
       });
@@ -288,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadDesignFile(file) {
       var img = new Image();
       img.onload = function () {
+        pushUndo();
         designImage = img;
         drawDesignToCanvas(img);
         overlay.src = designCanvas.toDataURL('image/png');
@@ -297,14 +387,28 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           setStatus('Step 2 done. Remove the background next.', 'success');
         }
+        revokeUrl(designObjectUrl);
+        designObjectUrl = '';
       };
-      img.src = URL.createObjectURL(file);
+      img.onerror = function () {
+        setStatus('Could not load that image. Please try another file.', 'error');
+        revokeUrl(designObjectUrl);
+        designObjectUrl = '';
+      };
+      revokeUrl(designObjectUrl);
+      designObjectUrl = URL.createObjectURL(file);
+      img.src = designObjectUrl;
     }
 
     if (designUpload) {
       designUpload.addEventListener('change', function () {
         var file = designUpload.files && designUpload.files[0];
         if (!file) return;
+        if (!isAllowedImage(file)) {
+          setStatus('Please upload a valid design image under 8MB.', 'error');
+          designUpload.value = '';
+          return;
+        }
         loadDesignFile(file);
       });
     }
@@ -328,7 +432,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return { x: minX, y: minY, w: w, h: h };
     }
 
-    function removeBackground() {
+    function removeBackground(withUndo) {
       if (!hasBody) {
         setStatus('Step 1 required: upload a body photo.', 'error');
         return;
@@ -337,6 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setStatus('Step 2 required: upload a tattoo design.', 'error');
         return;
       }
+      if (withUndo) pushUndo();
       var t = parseInt(threshold && threshold.value ? threshold.value : '30', 10);
       var data = new Uint8ClampedArray(designOriginal.data);
       for (var i = 0; i < data.length; i += 4) {
@@ -360,18 +465,119 @@ document.addEventListener('DOMContentLoaded', function () {
       setStatus('Step 3 done. Drag and scale to position it.', 'success');
     }
 
-    if (removeBg) removeBg.addEventListener('click', removeBackground);
+    if (removeBg) removeBg.addEventListener('click', function () { removeBackground(true); });
+    if (threshold) threshold.addEventListener('input', function () {
+      if (!designOriginal || !hasDesign) return;
+      removeBackground(false);
+      setStatus('Sensitivity updated.', 'success');
+    });
 
     if (scale) scale.addEventListener('input', function () { state.scale = parseFloat(scale.value); applyTransform(); });
+    if (scale) scale.addEventListener('change', function () { pushUndo(); });
+    if (rotateLeft) rotateLeft.addEventListener('click', function () {
+      if (!hasDesign) { setStatus('Upload a tattoo design first.', 'error'); return; }
+      pushUndo();
+      state.rotate = (state.rotate - 5) % 360;
+      applyTransform();
+    });
+    if (rotateRight) rotateRight.addEventListener('click', function () {
+      if (!hasDesign) { setStatus('Upload a tattoo design first.', 'error'); return; }
+      pushUndo();
+      state.rotate = (state.rotate + 5) % 360;
+      applyTransform();
+    });
+    if (bodyEditToggle) bodyEditToggle.addEventListener('click', function () {
+      if (!hasBody) { setStatus('Upload a body photo first.', 'error'); return; }
+      isBodyEditing = !isBodyEditing;
+      bodyEditToggle.setAttribute('aria-pressed', String(isBodyEditing));
+      bodyEditToggle.textContent = isBodyEditing ? 'Editing body' : 'Edit body';
+      setStatus(isBodyEditing ? 'Body edit enabled.' : 'Body edit disabled.', 'success');
+    });
+    if (undoBtn) undoBtn.addEventListener('click', function () {
+      if (!undoStack.length) { setStatus('Nothing to undo yet.', 'error'); return; }
+      var last = undoStack.pop();
+      applyUndo(last);
+      setStatus('Undid last change.', 'success');
+    });
+    if (saveBtn) saveBtn.addEventListener('click', function () {
+      if (!hasBody) { setStatus('Upload a body photo first.', 'error'); return; }
+      var rect = preview.getBoundingClientRect();
+      var out = document.createElement('canvas');
+      out.width = Math.round(rect.width * 2);
+      out.height = Math.round(rect.height * 2);
+      var octx = out.getContext('2d');
+      var resolvedBodyUrl = bodyUrl;
+      if (!resolvedBodyUrl) {
+        var bg = window.getComputedStyle(preview).backgroundImage || '';
+        var matches = bg.match(/url\(["']?([^"')]+)["']?\)/g) || [];
+        if (matches.length) {
+          var last = matches[matches.length - 1];
+          var m = /url\(["']?([^"')]+)["']?\)/.exec(last);
+          resolvedBodyUrl = m ? m[1] : '';
+        }
+      }
+      if (!resolvedBodyUrl) { setStatus('Body image missing.', 'error'); return; }
+      var bodyImg = new Image();
+      bodyImg.onload = function () {
+        try {
+          octx.drawImage(bodyImg, 0, 0, out.width, out.height);
+          if (hasDesign && overlay.getAttribute('src')) {
+            var designImg = new Image();
+            designImg.onload = function () {
+              var scaleVal = state.scale;
+              var computed = window.getComputedStyle(overlay);
+              var baseW = parseFloat(computed.width) || designImg.width;
+              var baseH = parseFloat(computed.height) || designImg.height;
+              var ow = baseW * scaleVal * 2;
+              var oh = baseH * scaleVal * 2;
+              var cx = out.width / 2 + state.x * 2;
+              var cy = out.height / 2 + state.y * 2;
+              octx.save();
+              octx.translate(cx, cy);
+              octx.rotate((state.rotate * Math.PI) / 180);
+              octx.drawImage(designImg, -ow / 2, -oh / 2, ow, oh);
+              octx.restore();
+              var link = document.createElement('a');
+              link.href = out.toDataURL('image/png');
+              link.download = 'tattoo-canvas.png';
+              link.click();
+              setStatus('Saved image downloaded.', 'success');
+            };
+            designImg.onerror = function () { setStatus('Could not render the design image.', 'error'); };
+            designImg.src = overlay.getAttribute('src');
+          } else {
+            var linkOnly = document.createElement('a');
+            linkOnly.href = out.toDataURL('image/png');
+            linkOnly.download = 'tattoo-canvas.png';
+            linkOnly.click();
+            setStatus('Saved image downloaded.', 'success');
+          }
+        } catch (e) {
+          setStatus('Download failed. Please try again.', 'error');
+        }
+      };
+      bodyImg.src = resolvedBodyUrl;
+    });
     if (reset) reset.addEventListener('click', function () {
-      state = { x: 0, y: 0, scale: 1 };
+      // Reset to "after body upload" state: keep body, clear design
+      state = { x: 0, y: 0, scale: 1, rotate: 0 };
       if (scale) scale.value = '1';
       applyTransform();
-      if (designImage) {
-        drawDesignToCanvas(designImage);
-        overlay.src = designCanvas.toDataURL('image/png');
+      designImage = null;
+      designOriginal = null;
+      hasDesign = false;
+      undoStack = [];
+      overlay.removeAttribute('src');
+      if (designCanvas) {
+        designCanvas.width = 1;
+        designCanvas.height = 1;
+        ctx.clearRect(0, 0, 1, 1);
       }
-      setStatus('', '');
+      if (designUpload) designUpload.value = '';
+      if (threshold) threshold.value = '30';
+      revokeUrl(designObjectUrl);
+      designObjectUrl = '';
+      setStatus(hasBody ? 'Design cleared. Upload a new tattoo design.' : 'Upload a body photo to begin.', 'success');
     });
 
     var dragging = false;
@@ -396,7 +602,11 @@ document.addEventListener('DOMContentLoaded', function () {
       state.y = baseY + dy;
       applyTransform();
     });
-    overlay.addEventListener('pointerup', function () { dragging = false; });
+    overlay.addEventListener('pointerup', function () {
+      if (!dragging) return;
+      dragging = false;
+      if (hasDesign) pushUndo();
+    });
     overlay.addEventListener('pointercancel', function () { dragging = false; });
   })();
 
