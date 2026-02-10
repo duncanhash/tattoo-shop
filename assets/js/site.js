@@ -309,6 +309,25 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    function cropToContent(width, height, data) {
+      var minX = width, minY = height, maxX = -1, maxY = -1;
+      for (var y = 0; y < height; y++) {
+        for (var x = 0; x < width; x++) {
+          var i = (y * width + x) * 4 + 3;
+          if (data[i] > 0) {
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+      if (maxX < minX || maxY < minY) return null;
+      var w = maxX - minX + 1;
+      var h = maxY - minY + 1;
+      return { x: minX, y: minY, w: w, h: h };
+    }
+
     function removeBackground() {
       if (!hasBody) {
         setStatus('Step 1 required: upload a body photo.', 'error');
@@ -330,6 +349,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       var processed = new ImageData(data, designOriginal.width, designOriginal.height);
       ctx.putImageData(processed, 0, 0);
+      var bounds = cropToContent(designOriginal.width, designOriginal.height, data);
+      if (bounds) {
+        var cropped = ctx.getImageData(bounds.x, bounds.y, bounds.w, bounds.h);
+        designCanvas.width = bounds.w;
+        designCanvas.height = bounds.h;
+        ctx.putImageData(cropped, 0, 0);
+      }
       overlay.src = designCanvas.toDataURL('image/png');
       setStatus('Step 3 done. Drag and scale to position it.', 'success');
     }
@@ -353,6 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var startY = 0;
     var baseX = 0;
     var baseY = 0;
+    overlay.addEventListener('dragstart', function (ev) { ev.preventDefault(); });
     overlay.addEventListener('pointerdown', function (ev) {
       dragging = true;
       overlay.setPointerCapture(ev.pointerId);
