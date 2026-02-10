@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
         .then(function (res) {
           if (!res.ok) throw new Error('Form submission failed');
-          setBookingStatus('Success! Your request has been sent.', 'success');
+          setBookingStatus('Success! Your request has been sent — check your email.', 'success');
           bookingForm.reset();
         })
         .catch(function () {
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
           .then(function (res) {
             if (!res.ok) throw new Error('Form submission failed');
-            if (status) status.textContent = 'Success! Your message has been sent.';
+            if (status) status.textContent = 'Success! Your message has been sent — check your email.';
             footerForm.reset();
           })
           .catch(function () {
